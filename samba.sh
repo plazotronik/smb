@@ -10,10 +10,10 @@
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR: David Personette (dperson@gmail.com),
+#        AUTHOR: Eroshenko Vladimir (plazotronik@gmail.com)
 #  ORGANIZATION:
-#       CREATED: 09/28/2014 12:11
-#      REVISION: 1.0
+#       CREATED: 24/07/2025
+#      REVISION: 2.0
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
@@ -87,7 +87,7 @@ import() { local file="$1" name id
 # Return: result
 perms() { local i file=/etc/samba/smb.conf
     for i in $(awk -F ' = ' '/   path = / {print $2}' $file); do
-        chown -Rh smbuser. $i
+        chown -Rh smbuser:smb $i
         find $i -type d ! -perm 775 -exec chmod 775 {} \;
         find $i -type f ! -perm 0664 -exec chmod 0664 {} \;
     done
@@ -293,5 +293,5 @@ elif ps -ef | egrep -v grep | grep -q smbd; then
     echo "Service already running, please restart container to apply changes"
 else
     [[ ${NMBD:-""} ]] && ionice -c 3 nmbd -D
-    exec ionice -c 3 smbd -FS --no-process-group </dev/null
+    exec ionice -c 3 smbd -F --debug-stdout --no-process-group </dev/null
 fi

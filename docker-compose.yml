@@ -1,12 +1,16 @@
-version: '3.4'
-
 services:
   samba:
-    image: dperson/samba
+    image: "plazotronik/smb"
+    container_name: samba
+    hostname: samba
+    security_opt:
+      - no-new-privileges=true
     environment:
-      TZ: 'EST5EDT'
+      - TZ=Europe/Moscow
+      - USERID=1000
+      - GROUPID=1000
     networks:
-      - default
+      - samba
     ports:
       - "137:137/udp"
       - "138:138/udp"
@@ -15,6 +19,7 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+      - /run
     restart: unless-stopped
     stdin_open: true
     tty: true
@@ -24,4 +29,7 @@ services:
     command: '-s "Mount;/mnt" -s "Bobs Volume;/mnt2;yes;no;no;bob" -u "bob;bobspasswd" -p'
 
 networks:
-  default:
+  samba:
+    name: samba
+    driver_opts:
+      com.docker.network.bridge.name: br-samba
