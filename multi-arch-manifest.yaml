@@ -1,16 +1,17 @@
-image: dperson/samba:latest
+image: plazotronik/smb:latest
+tags: ["4.21.4", "4.21", "4"]
 manifests:
-  - image: dperson/samba:amd64
+  - image: plazotronik/smb:amd64
     platform:
       architecture: amd64
       os: linux
-  - image: dperson/samba:aarch64
+  - image: plazotronik/smb:aarch64
     platform:
       architecture: arm64
       os: linux
       variant: v8
-  - image: dperson/samba:armhf
+  - image: plazotronik/smb:arm
     platform:
       architecture: arm
       os: linux
-      variant: v6
+      variant: v7
