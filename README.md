@@ -1,5 +1,10 @@
 [![logo](https://raw.githubusercontent.com/plazotronik/smb/master/logo.jpg)](https://www.samba.org)
 
+
+# Fork changes
+This repository is a fork of the https://github.com/dperson/samba project, since dperson/samba stopped being updated a long time ago. This version contains the current samba for the current version of alpine.
+
+
 # Samba
 
 Samba docker container
