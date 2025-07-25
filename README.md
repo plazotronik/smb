@@ -2,7 +2,31 @@
 
 
 # Fork changes
+
 This repository is a fork of the https://github.com/dperson/samba project, since dperson/samba stopped being updated a long time ago. This version contains the current samba for the current version of alpine.
+
+## For build multi-platform image (note)
+
+Pre-req - visit https://docs.docker.com/go/build-multi-platform/
+
+Install package - qemu-user-static-binfmt (ArchLinux)
+
+Conf this - https://docs.docker.com/engine/storage/containerd/#enable-containerd-image-store-on-docker-engine
+
+Or run docker-in-docker (example):
+
+```bash
+export TMP_PORT=32375 && docker rm -f dind-${TMP_PORT} && docker network create ${TMP_PORT}-network ; sudo rm -rf /tmp/docker-${TMP_PORT} && docker run -d --rm --name dind-${TMP_PORT} -p ${TMP_PORT}:2375 -v /etc/docker/daemon.json_dind:/etc/docker/daemon.json:ro -v ${HOME}/.docker:/root/.docker:ro --tmpfs  /root/.docker/buildx:size=4G -v /tmp/docker-${TMP_PORT}:/var/run --pull always --tmpfs /var/lib/docker:size=4G --privileged --network ${TMP_PORT}-network --network-alias docker docker:dind && sleep 3 && docker exec -it dind-${TMP_PORT} ash
+```
+
+A-a-and build:
+
+```bash
+docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:4.21.4 .
+docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:4.21 .
+docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:4. .
+docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:latest .
+```
 
 
 # Samba
