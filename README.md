@@ -22,10 +22,7 @@ export TMP_PORT=32375 && docker rm -f dind-${TMP_PORT} && docker network create 
 A-a-and build:
 
 ```bash
-docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:4.21.4 .
-docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:4.21 .
-docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:4. .
-docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:latest .
+docker buildx build --push --force-rm --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t plazotronik/smb:4.21.4 -t plazotronik/smb:4.21 -t plazotronik/smb:4 -t plazotronik/smb:latest .
 ```
 
 
